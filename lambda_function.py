@@ -43,6 +43,9 @@ def get_hipchat_logs(date, room):
     
     parsed_json = json.loads(html)
     
+    if len(parsed_json['messages']) == 0:
+        return ''
+    
     body = '<table>'
     
     for message in parsed_json['messages']:
@@ -55,6 +58,9 @@ def get_hipchat_logs(date, room):
     return body
 
 def send_email(subject, body):
+    if body == '':
+        return
+    
     session = boto3.Session(
         aws_access_key_id=AWSKEY,
         aws_secret_access_key=AWSSECRET,
@@ -83,6 +89,9 @@ def send_email(subject, body):
     
 
 
+
+  
+  
 
   
   
